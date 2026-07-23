@@ -23,6 +23,14 @@ shift. We run it on a synthetic model with a known ground truth (to validate the
 machinery) and on two real language models (to test the hypothesis). The results
 are reported as-is, including where they contradict the hypothesis.
 
+<div align="center">
+
+![The BELIEF-STATE pipeline: identify a belief direction by contrast, localize it with layer-corrected probes, steer it against an independent behavioral readout, and track its drift under regime shift.](figures/pipeline.gif)
+
+*The four-stage pipeline — identify · localize · steer · stress. Schematic; empirical numbers are in [`results_hf/`](results_hf/COMPARISON.md) and [`results_qwen/`](results_qwen/FINDINGS.md).*
+
+</div>
+
 > **Status: a mixed, honestly-reported result — not a clean confirmation.** On
 > GPT-2 the causal claims are **refuted**. On Qwen2.5-1.5B-Instruct they are
 > **partially supported**: a localized, reversible belief direction causally
