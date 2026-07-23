@@ -1,0 +1,67 @@
+{
+  "horizon": "near_term",
+  "readout": "behavioral",
+  "directional_specificity": -0.0279,
+  "reversibility": {
+    "belief_neg": -0.0033,
+    "belief_pos": 0.0033,
+    "random_neg": -0.0173,
+    "random_pos": 0.0172
+  },
+  "significance": {
+    "outcome": "behavioral_readout (independent of belief axis)",
+    "test": "cluster_permutation (firm-level)",
+    "effective_n": {
+      "nominal": 16,
+      "effective": 15.47
+    },
+    "belief_vs_random": {
+      "permutation": {
+        "statistic": -0.01389,
+        "p_value": 1.0,
+        "n_permutations": 5000
+      },
+      "effect_size_cohens_d": -16.5554,
+      "gap_ci": {
+        "estimate": -0.01389,
+        "ci_low": -0.01445,
+        "ci_high": -0.01332,
+        "level": 0.95
+      }
+    },
+    "belief_vs_orthogonal": {
+      "permutation": {
+        "statistic": 0.00124,
+        "p_value": 0.0012,
+        "n_permutations": 5000
+      },
+      "effect_size_cohens_d": 1.4817,
+      "gap_ci": {
+        "estimate": 0.00124,
+        "ci_low": 0.0007,
+        "ci_high": 0.00178,
+        "level": 0.95
+      }
+    },
+    "belief_vs_swap": {
+      "permutation": {
+        "statistic": 0.00026,
+        "p_value": 0.26495,
+        "n_permutations": 5000
+      },
+      "effect_size_cohens_d": 0.2241,
+      "gap_ci": {
+        "estimate": 0.00026,
+        "ci_low": 0.00024,
+        "ci_high": 0.00028,
+        "level": 0.95
+      }
+    },
+    "belief_vs_random_permutation": {
+      "statistic": -0.01389,
+      "p_value": 1.0,
+      "n_permutations": 5000
+    },
+    "effect_size_cohens_d": -16.5554
+  }
+}

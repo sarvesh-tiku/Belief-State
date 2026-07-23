@@ -1,0 +1,58 @@
+# BELIEF-STATE configuration -- REAL-MODEL run on a modern instruct LM.
+#
+# Qwen2.5-1.5B-Instruct: ungated, 2024 instruction-tuned, 28 layers / 1536 hidden.
+# A far fairer test of the belief-state hypothesis than gpt2 (124M, 2019, base).
+# Whatever the conditions do here -- pass, fail, or pass weakly -- is reported
+# as-is, with the same non-circular controls as the gpt2 run.
+
+seed: 20260228
+
+model:
+  backend: "hf"
+  hf_model_name: "Qwen/Qwen2.5-1.5B-Instruct"
+  hf_device: "auto"                 # cuda > mps > cpu
+  hf_block_path: "model.layers"     # Qwen/Llama-style decoder stack
+
+  # Mock fields are ignored under the hf backend but kept so a single loader
+  # works for both configs.
+  mock_hidden_dim: 256
+  mock_num_layers: 24
+  mock_belief_layer: 13
+  mock_noise: 0.35
+
+data:
+  source: "synthetic"
+  n_firms: 16                        # real forward passes are costlier
+  periods_per_firm: 2
+  lookback_days: 60
+  horizon_days: 60
+  sectors: ["tech", "energy", "financials", "healthcare", "consumer", "industrials"]
+  regimes: ["low_vol", "high_vol"]
+
+tasks:
+  horizons: ["near_term", "medium_term"]
+  framings: ["risk_assessment", "scenario_ranking"]
+  formats: ["free_form", "structured"]
+  orderings: ["history_first", "disclosure_first"]
+  paraphrase: true
+  reasoning_steps: 8
+
+identify:
+  n_directions: 4
+  # Exploratory gates, not the mock's tuned near-perfect bars.
+  min_contrastive_sensitivity: 0.10
+  min_temporal_persistence: 0.40
+  min_horizon_separation: 0.05
+  min_cross_variant_alignment: 0.30
+  max_null_sensitivity: 0.50
+
+intervene:
+  # Residual-stream norms scale with model size; keep the grid broad and report
+  # effect size vs controls regardless of absolute scale.
+  alpha_grid: [-8.0, -6.0, -4.0, -2.0, -1.0, 0.0, 1.0, 2.0, 4.0, 6.0, 8.0]
+  n_random_controls: 8
+  n_task_instances: 16
+
+output:
+  figures_dir: "figures_qwen"
+  results_dir: "results_qwen"

@@ -1,0 +1,60 @@
+# BELIEF-STATE configuration -- REAL-MODEL (Hugging Face) run.
+#
+# This is the honest, non-synthetic pipeline: activations come from a real
+# causal-LM, not from a backend that planted the belief-state. Thresholds are
+# relaxed relative to config.yaml because the mock's thresholds were tuned to an
+# analytically planted signal and do NOT transfer to a real model. Whatever the
+# conditions do here (pass, fail, or pass weakly) is reported as-is.
+
+seed: 20260228
+
+model:
+  backend: "hf"
+  hf_model_name: "gpt2"        # tiny + locally cached; swap for a larger model
+  hf_device: "auto"            # cuda > mps > cpu
+  # hf_block_path: "model.layers"   # set for non-standard architectures
+
+  # Mock fields are ignored under the hf backend but kept so a single loader
+  # works for both configs.
+  mock_hidden_dim: 256
+  mock_num_layers: 24
+  mock_belief_layer: 13
+  mock_noise: 0.35
+
+data:
+  source: "synthetic"
+  n_firms: 16                  # smaller corpus: real forward passes are costlier
+  periods_per_firm: 2
+  lookback_days: 60
+  horizon_days: 60
+  sectors: ["tech", "energy", "financials", "healthcare", "consumer", "industrials"]
+  regimes: ["low_vol", "high_vol"]
+
+tasks:
+  horizons: ["near_term", "medium_term"]
+  framings: ["risk_assessment", "scenario_ranking"]
+  formats: ["free_form", "structured"]
+  orderings: ["history_first", "disclosure_first"]
+  paraphrase: true
+  reasoning_steps: 8
+
+identify:
+  n_directions: 4
+  # Relaxed thresholds: a real model is not guaranteed to satisfy the mock's
+  # tuned bars. These are exploratory gates, not the mock's near-perfect ones.
+  min_contrastive_sensitivity: 0.10
+  min_temporal_persistence: 0.40
+  min_horizon_separation: 0.05
+  min_cross_variant_alignment: 0.30
+  max_null_sensitivity: 0.50
+
+intervene:
+  # Real residual-stream norms are large, so the mock's +-1.0 grid is a no-op.
+  # Steering strengths are scaled up; effect size still reported vs random.
+  alpha_grid: [-8.0, -6.0, -4.0, -2.0, -1.0, 0.0, 1.0, 2.0, 4.0, 6.0, 8.0]
+  n_random_controls: 8
+  n_task_instances: 16
+
+output:
+  figures_dir: "figures_hf"
+  results_dir: "results_hf"

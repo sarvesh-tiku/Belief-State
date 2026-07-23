@@ -1,0 +1,83 @@
+# BELIEF-STATE experiment configuration
+# All experiments read from this single file so that runs are reproducible.
+
+seed: 20260228
+
+# ----------------------------------------------------------------------------
+# Model backend
+# ----------------------------------------------------------------------------
+model:
+  # backend: "hf" uses a real Hugging Face transformer (requires torch +
+  #          transformers and a model download). "mock" uses a deterministic
+  #          synthetic transformer whose activations encode a ground-truth
+  #          belief-state, so the full identification + intervention pipeline
+  #          runs offline and its behaviour is analytically checkable.
+  backend: "mock"
+
+  # Used only when backend == "hf".
+  hf_model_name: "gpt2"
+
+  # Used only when backend == "mock". Mirrors a small transformer.
+  mock_hidden_dim: 256
+  mock_num_layers: 24          # matches the 0..24 layer axis in Figure 1A
+  mock_belief_layer: 13        # layer of peak belief-state localization
+  mock_noise: 0.35             # surface/nuisance noise relative to belief signal
+
+# ----------------------------------------------------------------------------
+# Data (Section 3.1): aligned earnings-call + market time-series tuples
+# ----------------------------------------------------------------------------
+data:
+  # source: "synthetic" builds temporally aligned tuples with controllable
+  #         volatility regimes (self-contained, no downloads). "local" reads
+  #         user-provided transcripts + price series from data/raw/.
+  source: "synthetic"
+  n_firms: 24
+  periods_per_firm: 4          # reporting periods (quarters)
+  lookback_days: 60            # historical market context window
+  horizon_days: 60             # realized post-call window
+  sectors: ["tech", "energy", "financials", "healthcare", "consumer", "industrials"]
+  # Volatility-regime split used for controlled contrasts.
+  regimes: ["low_vol", "high_vol"]
+
+# ----------------------------------------------------------------------------
+# Tasks (Section 3.2) and belief elicitation (Section 3.3)
+# ----------------------------------------------------------------------------
+tasks:
+  horizons: ["near_term", "medium_term"]
+  # Prompt variants used for robustness (Section 4.2).
+  framings: ["risk_assessment", "scenario_ranking"]
+  formats: ["free_form", "structured"]
+  orderings: ["history_first", "disclosure_first"]
+  paraphrase: true
+  reasoning_steps: 8           # matches the 1..8 step axis in Figure 1C
+
+# ----------------------------------------------------------------------------
+# Identification (Section 4)
+# ----------------------------------------------------------------------------
+identify:
+  n_directions: 4              # low-dimensional belief subspace per horizon
+  # Thresholds for the three necessary conditions.
+  min_contrastive_sensitivity: 0.30
+  min_temporal_persistence: 0.60
+  min_horizon_separation: 0.15
+  # Cross-variant retention: a direction is kept only if its mean pairwise
+  # cosine alignment across prompt variants exceeds this.
+  min_cross_variant_alignment: 0.60
+  # Null-contrast ceiling: null contrasts must fall below this sensitivity.
+  max_null_sensitivity: 0.15
+
+# ----------------------------------------------------------------------------
+# Interventions (Section 5)
+# ----------------------------------------------------------------------------
+intervene:
+  # Steering strengths alpha for h' = h + alpha * b (Equation 1).
+  alpha_grid: [-1.0, -0.85, -0.7, -0.55, -0.4, -0.25, -0.1, 0.0, 0.15, 0.25, 0.4, 0.55, 0.7, 0.85, 1.0]
+  n_random_controls: 16        # matched random directions r
+  n_task_instances: 48         # instances averaged per steering strength
+
+# ----------------------------------------------------------------------------
+# Output
+# ----------------------------------------------------------------------------
+output:
+  figures_dir: "figures"
+  results_dir: "results"

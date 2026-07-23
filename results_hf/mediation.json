@@ -1,0 +1,15 @@
+{
+  "horizon": "near_term",
+  "readout": "behavioral",
+  "total_effect": 0.0008,
+  "natural_direct_effect": -0.2007,
+  "natural_indirect_effect": -0.2008,
+  "proportion_mediated": -262.6871,
+  "n_pairs": 16,
+  "proportion_mediated_ci": {
+    "estimate": -262.68712,
+    "ci_low": -869.75768,
+    "ci_high": 1009.84801,
+    "level": 0.95
+  }
+}

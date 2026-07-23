@@ -1,0 +1,8 @@
+{
+  "horizon": "near_term",
+  "instability_onset_step": null,
+  "failure_step": null,
+  "onset_precedes_failure": false,
+  "drift_ratio_shift_over_stable": 1.4405,
+  "n_instances": 16
+}

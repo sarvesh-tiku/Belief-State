@@ -1,0 +1,15 @@
+{
+  "horizon": "near_term",
+  "layer": 27,
+  "candidates": {
+    "diff_of_means": 0.23,
+    "pc1": 0.6258,
+    "pc2": 0.3109,
+    "pc3": 0.1095,
+    "pc4": 0.094
+  },
+  "diff_of_means_effect": 0.23,
+  "best": "pc1",
+  "best_effect": 0.6258,
+  "best_vs_diff_alignment": 0.0118
+}

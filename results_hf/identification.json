@@ -1,0 +1,56 @@
+{
+  "peak_layer": {
+    "near_term": 12,
+    "medium_term": 12
+  },
+  "horizon_separation": 0.0125,
+  "cross_variant_alignment": {
+    "near_term": 0.9179,
+    "medium_term": 0.8857
+  },
+  "null_sensitivity": 5.9696,
+  "conditions": {
+    "contrastive_sensitivity": false,
+    "temporal_persistence": true,
+    "horizon_differentiation": false,
+    "cross_variant_robustness": true
+  },
+  "passed": false,
+  "significance": {
+    "belief_vs_null_permutation": {
+      "statistic": 2.0433,
+      "p_value": 0.0056,
+      "n_permutations": 5000
+    },
+    "test": "cluster_permutation (firm-level)",
+    "effect_size_cohens_d": 0.5299,
+    "belief_projection_ci": {
+      "estimate": 6.97609,
+      "ci_low": 4.71735,
+      "ci_high": 9.36469,
+      "level": 0.95
+    },
+    "null_projection_ci": {
+      "estimate": 4.93278,
+      "ci_low": 4.34807,
+      "ci_high": 5.5388,
+      "level": 0.95
+    },
+    "effective_n": {
+      "belief_nominal": 32,
+      "belief_effective": 16.44,
+      "null_nominal": 96,
+      "null_effective": 96.0
+    },
+    "layer_localization": {
+      "correction": "holm_bonferroni",
+      "per_horizon": {
+        "near_term": {
+          "significant_layers": [],
+          "n_significant": 0,
+          "min_p_adjusted": 0.07796
+        }
+      }
+    }
+  }
+}

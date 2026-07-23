@@ -1,0 +1,13 @@
+# Core scientific stack (required)
+numpy>=1.23
+scipy>=1.9
+scikit-learn>=1.1
+matplotlib>=3.6
+pandas>=1.5
+pyyaml>=6.0
+
+# Real-model backend (optional). The pipeline runs fully with the deterministic
+# mock backend if these are not installed; install them to run against a real
+# Hugging Face transformer.
+torch>=2.0
+transformers>=4.30
