@@ -147,18 +147,6 @@ HuggingFace causal-LM works via `hf_model_name` / `hf_block_path`.
 `config.yaml` (mock), `config_hf.yaml` (GPT-2), and `config_qwen.yaml` (Qwen)
 hold the seed, thresholds, α-grid, and data split for each run.
 
-## Layout
-
-```
-beliefstate/   data · tasks · model            corpus, prompts, activations, patching
-               identify · intervene            contrasts + conditions, steering + controls
-               probes · stress · mediation     grouped probes, drift, Vig (2020) mediation
-               stats · figures                 cluster-aware inference, figures
-scripts/       run_all + per-stage entry points
-tests/         65 unit + end-to-end tests
-results_hf/    GPT-2 outputs + COMPARISON.md    results_qwen/  Qwen outputs + FINDINGS.md
-```
-
 ## Limitations and next steps
 
 - **Surface leakage.** The volatility regime is stated numerically in the
