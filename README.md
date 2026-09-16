@@ -68,7 +68,7 @@ works (steering moves behavior monotonically, mediation proportion ≈ 0.98, the
 finder recovers difference-of-means with alignment 1.0). That is what lets us
 trust the real-model negatives as real, not code artifacts.
 
-## What the code finds
+## Findings from the Code
 
 | Claim | Mock (ground truth) | GPT-2 (124M) | Qwen2.5-1.5B-Instruct |
 |---|---|---|---|
