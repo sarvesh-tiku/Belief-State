@@ -25,7 +25,6 @@ are reported as-is, including where they contradict the hypothesis.
 
 <div align="center">
 
-![The BELIEF-STATE pipeline: identify a belief direction by contrast, localize it with layer-corrected probes, steer it against an independent behavioral readout, and track its drift under regime shift.](figures/pipeline.gif)
 
 *The four-stage pipeline — identify · localize · steer · stress. Schematic; empirical numbers are in [`results_hf/`](results_hf/COMPARISON.md) and [`results_qwen/`](results_qwen/FINDINGS.md).*
 
